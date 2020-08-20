@@ -21,19 +21,31 @@ print('---------' + '\n'
 
 def check_the_rows(matrix):
     for line in matrix:
-        inline = 1
+        inline = 0
         for index in range(len(line)):
             if line[index] == line[index-1]:
                 inline += 1
-        if inline >= 3 and line[index] != '_':
+        if inline == 3 and line[index] != '_':
             global winer
             winer= line[index]
             return True
     return False
 
+def check_the_column(matrix):
+    inline = 0
+    for index in range(len(matrix[0])):
+        for row in matrix:
+            if row[index] == row[index - 1]:
+                inline += 1
+        if inline == 3:
+            global winer
+            winer = row[index]
+            return True
+    return False
+
 print(matrix)
 
-if check_the_rows(matrix) == True:
+if check_the_rows(matrix) or check_the_column(matrix):
     print(f'{winer} wins')
 else:
     print('None')
