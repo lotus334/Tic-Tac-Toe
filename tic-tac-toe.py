@@ -20,29 +20,40 @@ print('---------' + '\n'
       )
 
 def check_the_rows(matrix):
+    flag = False
+    global winer
+    winer = None
     for row in matrix:
         inline = 0
         for index in range(len(row)):
             if row[index] == row[index-1]:
                 inline += 1
         if inline == 3 and row[index] != '_':
-            global winer
+            if winer != None:
+                winer = 'both'
+                return False
+#            global winer
             winer = row[index]
-            return True
-    return False
+            flag = True
+    return flag
 
 def check_the_column(matrix):
-#    inline = 0
+    flag = False
+    global winer
+    winer = None
     for index in range(len(matrix[0])):
         inline = 0
         for j in range(len(matrix)):
             if matrix[j][index] == matrix[j-1][index]:
                 inline += 1
         if inline == 3 and matrix[j][index] != '_':
-            global winer
+            if winer != None:
+                winer = 'both'
+                return False
+#            global winer
             winer = matrix[j][index]
-            return True
-    return False
+            flag = True
+    return flag
 
 def check_the_diagonal(matrix):
     if (matrix[0][0] == matrix[1][1] and matrix[1][1] == matrix[2][2]) or (matrix[0][2] == matrix[1][1] and matrix[1][1] == matrix[2][0]) and matrix[1][1] != '_':
@@ -57,9 +68,24 @@ def check_the_empty(matrix):
             return False
     return True
 
+def check_number(matrix):
+    x = 0
+    o = 0
+    for row in matrix:
+        for index in row:
+            if index == 'X':
+                x += 1
+            elif index == 'O':
+                o += 1
+    if abs(x - o) > 1:
+        return True
+    return False
+
 if check_the_rows(matrix) or check_the_column(matrix) or check_the_diagonal(matrix):
     print(f'{winer} wins')
 elif check_the_empty(matrix):
     print('Draw')
+elif check_number(matrix) or winer == 'both':
+    print('Impossible')
 else:
-    print('None')
+    print('Game not finished')
