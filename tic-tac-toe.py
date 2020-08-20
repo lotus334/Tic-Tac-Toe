@@ -20,14 +20,14 @@ print('---------' + '\n'
       )
 
 def check_the_rows(matrix):
-    for line in matrix:
+    for row in matrix:
         inline = 0
-        for index in range(len(line)):
-            if line[index] == line[index-1]:
+        for index in range(len(row)):
+            if row[index] == row[index-1]:
                 inline += 1
-        if inline == 3 and line[index] != '_':
+        if inline == 3 and row[index] != '_':
             global winer
-            winer= line[index]
+            winer = row[index]
             return True
     return False
 
