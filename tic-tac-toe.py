@@ -88,10 +88,14 @@ def print_the_game(matrix):
 def translate_coordinates(matrix, col, row):
     dct_col = {1:0, 2:1, 3:2}
     dct_row = {1:2, 2:1, 3:0}
-    matrix[dct_row[row]][dct_col[col]] = 'X'
+    if matrix[dct_row[row]][dct_col[col]] == '_':
+        matrix[dct_row[row]][dct_col[col]] = 'X'
+        global flag
+        flag = True
+    else:
+        print('This cell is occupied! Choose another one!')
     return matrix
     
-
 def start_the_game():
     inp = input('Enter cells: ')
     first_line = [inp[i] for i in range(0, 3)]
@@ -99,10 +103,18 @@ def start_the_game():
     third_line = [inp[i] for i in range(6, 9)]
     matrix = [first_line, second_line, third_line]    
     print_the_game(matrix)
-    while check_the_game(matrix) == 'Game not finished':
-        row, col = map(int, input('Enter the coordinates: ').split())
-        translate_coordinates(matrix, col, row)
-        print_the_game(matrix)
+    global flag
+    flag = False
+#    while check_the_game(matrix) == 'Game not finished':
+    while flag == False:
+        try:
+            col, row = map(int, input('Enter the coordinates: ').split())
+            translate_coordinates(matrix, col, row)
+        except ValueError:
+            print('You should enter numbers!')
+        except KeyError:
+            print('Coordinates should be from 1 to 3!')
+    print_the_game(matrix)
                 
 start_the_game()
 
