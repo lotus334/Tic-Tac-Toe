@@ -5,20 +5,6 @@ Created on Wed Aug 19 17:48:21 2020
 @author: OKS-8
 """
 
-inp = input('Enter cells: ')
-
-first_line = [inp[i] for i in range(0, 3)]
-second_line = [inp[i] for i in range(3, 6)]
-third_line = [inp[i] for i in range(6, 9)]
-matrix = [first_line, second_line, third_line]
-
-print('---------' + '\n'
-      '| ' + ' '.join(first_line) + ' |' + '\n'
-      '| ' + ' '.join(second_line) + ' |' + '\n'
-      '| ' + ' '.join(third_line) + ' |' + '\n'
-      '---------'
-      )
-
 def check_the_rows(matrix):
     flag = False
     global winer
@@ -81,11 +67,49 @@ def check_number(matrix):
         return True
     return False
 
-if check_the_rows(matrix) or check_the_column(matrix) or check_the_diagonal(matrix):
-    print(f'{winer} wins')
-elif check_the_empty(matrix):
-    print('Draw')
-elif check_number(matrix) or winer == 'both':
-    print('Impossible')
-else:
-    print('Game not finished')
+def check_the_game(matrix):
+    if check_the_rows(matrix) or check_the_column(matrix) or check_the_diagonal(matrix):
+        print(f'{winer} wins')
+    elif check_the_empty(matrix):
+        print('Draw')
+    elif check_number(matrix) or winer == 'both':
+        print('Impossible')
+    else:
+        return 'Game not finished'
+    
+def print_the_game(matrix):
+        print('---------' + '\n'
+          '| ' + ' '.join(matrix[0]) + ' |' + '\n'
+          '| ' + ' '.join(matrix[1]) + ' |' + '\n'
+          '| ' + ' '.join(matrix[2]) + ' |' + '\n'
+          '---------'
+          )
+
+def translate_coordinates(matrix, col, row):
+    dct_col = {1:0, 2:1, 3:2}
+    dct_row = {1:2, 2:1, 3:0}
+    matrix[dct_row[row]][dct_col[col]] = 'X'
+    return matrix
+    
+
+def start_the_game():
+    inp = input('Enter cells: ')
+    first_line = [inp[i] for i in range(0, 3)]
+    second_line = [inp[i] for i in range(3, 6)]
+    third_line = [inp[i] for i in range(6, 9)]
+    matrix = [first_line, second_line, third_line]    
+    print_the_game(matrix)
+    while check_the_game(matrix) == 'Game not finished':
+        row, col = map(int, input('Enter the coordinates: ').split())
+        translate_coordinates(matrix, col, row)
+        print_the_game(matrix)
+                
+start_the_game()
+
+
+
+
+
+
+
+
