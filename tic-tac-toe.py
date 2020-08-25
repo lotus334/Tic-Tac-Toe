@@ -5,6 +5,39 @@ Created on Wed Aug 19 17:48:21 2020
 @author: OKS-8
 """
 
+'''
+Tic-Tac-Toe, also known as Noughts and crosses or Xs and Os.
+Tic-tac-toe is a game played by two players on a 3x3 field where the duel takes place. 
+One of the players plays as 'X', and the other player is 'O'. 'X' plays first, then the 'O' side plays, and so on.
+The first player that writes 3 'X' or 3 'O' in a straight line (including diagonals) wins.
+
+Suppose the bottom left cell has the coordinates (1, 1) and the top right cell has the coordinates (3, 3) 
+like in this table:
+(1, 3) (2, 3) (3, 3)
+(1, 2) (2, 2) (3, 2)
+(1, 1) (2, 1) (3, 1)
+
+How to use:
+    Run the file in IDE or CLI.
+    The game asks to enter coordinates and shows the 3x3 field:
+        'X' start the game.
+        input: two numbers divided by space from 1 to 3.
+        output: the state of the game and maybe offer for enter coordinates again.
+        
+Possible states of the game:
+"Game not finished" when no side has a three in a row but there are still empty cells;
+"Draw" when no side has a three in a row and there are no empty cells left;
+"X wins" when the field has three Xs in a row;
+"O wins" when the field has three Os in a row;
+"Impossible" when the field has three Xs in a row as well as three Os in a row. 
+Or the field has a lot more Xs that Os or vice versa (if the difference is 2 or more, should be 1 or 0). 
+
+Possible error-messages:
+-"This cell is occupied! Choose another one!" if the cell is not empty;
+-"You should enter numbers!" if the user enters other symbols instead of numbers;
+-"Coordinates should be from 1 to 3!" if the user goes beyond the field.
+'''
+
 def check_the_rows(matrix):
     global winer
     winer = None
