@@ -39,6 +39,17 @@ Possible error-messages:
 '''
 
 def check_the_rows(matrix):
+    '''
+    Parameters
+    ----------
+    matrix : a list
+        list with 3 elements: 'X', 'O' or '_'.
+
+    Returns
+    -------
+    boolean False or winer
+        It's hard to explain...
+    '''
     global winer
     winer = None
     for row in matrix:
@@ -54,6 +65,17 @@ def check_the_rows(matrix):
     return winer
 
 def check_the_column(matrix):
+    '''
+    Parameters
+    ----------
+    matrix : a list
+        list with 3 elements: 'X', 'O' or '_'.
+
+    Returns
+    -------
+    boolean False or winer
+        It's hard to explain...
+    '''
     global winer
     winer = None
     for index in range(len(matrix[0])):
@@ -69,6 +91,16 @@ def check_the_column(matrix):
     return winer
 
 def check_the_diagonal(matrix):
+    '''
+    Parameters
+    ----------
+    matrix : a list
+        list with 3 elements: 'X', 'O' or '_'.
+
+    Returns
+    -------
+    boolean
+    '''
     if (matrix[0][0] == matrix[1][1] and matrix[1][1] == matrix[2][2]) or (matrix[0][2] == matrix[1][1] and matrix[1][1] == matrix[2][0]):
         if matrix[1][1] != '_':
             global winer
@@ -77,12 +109,36 @@ def check_the_diagonal(matrix):
     return False
 
 def check_the_empty(matrix):
+    '''
+    Function finds out empty cells. If there is - returns True, else - False
+    
+    Parameters
+    ----------
+    matrix : a list
+        list with 3 elements: 'X', 'O' or '_'.
+
+    Returns
+    -------
+    bool
+    '''
     for row in matrix:
         if '_' in row:
             return False
     return True
 
 def check_number(matrix):
+    '''
+    The function checks the number of noughts and crosses. Their ratio should be less than two.
+
+    Parameters
+    ----------
+    matrix : a list
+        list with 3 elements: 'X', 'O' or '_'.
+
+    Returns
+    -------
+    bool
+    '''
     x = 0
     o = 0
     for row in matrix:
@@ -96,6 +152,20 @@ def check_number(matrix):
     return False
 
 def check_the_game(matrix):
+    '''
+    The function checks wheather the game is over.
+
+    Parameters
+    ----------
+    matrix : a list
+        list with 3 elements: 'X', 'O' or '_'.
+
+    Returns
+    -------
+    str or print(built-in function)
+        It's hard to explain...
+
+    '''
     if check_the_rows(matrix) or check_the_column(matrix) or check_the_diagonal(matrix):
         print(f'{winer} wins')
     elif check_the_empty(matrix):
@@ -106,7 +176,20 @@ def check_the_game(matrix):
         return 'Game not finished'
     
 def print_the_game(matrix):
-        print('---------' + '\n'
+    '''
+    Prints out the field of the game.
+
+    Parameters
+    ----------
+    matrix : a list
+        list with 3 elements: 'X', 'O' or '_'.
+
+    Returns
+    -------
+    None. Just print
+
+    '''
+    print('---------' + '\n'
           '| ' + ' '.join(matrix[0]) + ' |' + '\n'
           '| ' + ' '.join(matrix[1]) + ' |' + '\n'
           '| ' + ' '.join(matrix[2]) + ' |' + '\n'
@@ -114,6 +197,18 @@ def print_the_game(matrix):
           )
 
 def translate_coordinates(matrix, col, row):
+    '''
+    Fills the empty cell with the value.
+
+    Parameters
+    ----------
+    matrix : a list
+        list with 3 elements: 'X', 'O' or '_'.
+
+    Returns
+    -------
+    a list
+    '''
     dct_col = {1:0, 2:1, 3:2}
     dct_row = {1:2, 2:1, 3:0}
     if matrix[dct_row[row]][dct_col[col]] == '_':
