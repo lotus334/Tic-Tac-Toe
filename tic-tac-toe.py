@@ -6,7 +6,6 @@ Created on Wed Aug 19 17:48:21 2020
 """
 
 def check_the_rows(matrix):
-    flag = False
     global winer
     winer = None
     for row in matrix:
@@ -18,13 +17,10 @@ def check_the_rows(matrix):
             if winer != None:
                 winer = 'both'
                 return False
-#            global winer
             winer = row[index]
-            flag = True
-    return flag
+    return winer
 
 def check_the_column(matrix):
-    flag = False
     global winer
     winer = None
     for index in range(len(matrix[0])):
@@ -36,16 +32,15 @@ def check_the_column(matrix):
             if winer != None:
                 winer = 'both'
                 return False
-#            global winer
             winer = matrix[j][index]
-            flag = True
-    return flag
+    return winer
 
 def check_the_diagonal(matrix):
-    if (matrix[0][0] == matrix[1][1] and matrix[1][1] == matrix[2][2]) or (matrix[0][2] == matrix[1][1] and matrix[1][1] == matrix[2][0]) and matrix[1][1] != '_':
-        global winer
-        winer = matrix[1][1]
-        return True
+    if (matrix[0][0] == matrix[1][1] and matrix[1][1] == matrix[2][2]) or (matrix[0][2] == matrix[1][1] and matrix[1][1] == matrix[2][0]):
+        if matrix[1][1] != '_':
+            global winer
+            winer = matrix[1][1]
+            return True
     return False
 
 def check_the_empty(matrix):
@@ -89,7 +84,7 @@ def translate_coordinates(matrix, col, row):
     dct_col = {1:0, 2:1, 3:2}
     dct_row = {1:2, 2:1, 3:0}
     if matrix[dct_row[row]][dct_col[col]] == '_':
-        matrix[dct_row[row]][dct_col[col]] = 'X'
+        matrix[dct_row[row]][dct_col[col]] = now
         global flag
         flag = True
     else:
@@ -97,16 +92,14 @@ def translate_coordinates(matrix, col, row):
     return matrix
     
 def start_the_game():
-    inp = input('Enter cells: ')
-    first_line = [inp[i] for i in range(0, 3)]
-    second_line = [inp[i] for i in range(3, 6)]
-    third_line = [inp[i] for i in range(6, 9)]
+    first_line = ['_' for i in range(0, 3)]
+    second_line = ['_' for i in range(3, 6)]
+    third_line = ['_' for i in range(6, 9)]
     matrix = [first_line, second_line, third_line]    
     print_the_game(matrix)
-    global flag
-    flag = False
-#    while check_the_game(matrix) == 'Game not finished':
-    while flag == False:
+    global now, then
+    now, then = 'X', 'O'
+    while check_the_game(matrix) == 'Game not finished':
         try:
             col, row = map(int, input('Enter the coordinates: ').split())
             translate_coordinates(matrix, col, row)
@@ -114,7 +107,8 @@ def start_the_game():
             print('You should enter numbers!')
         except KeyError:
             print('Coordinates should be from 1 to 3!')
-    print_the_game(matrix)
+        print_the_game(matrix)
+        now, then = then, now
                 
 start_the_game()
 
